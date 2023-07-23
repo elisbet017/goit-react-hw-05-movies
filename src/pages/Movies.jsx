@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import { getSearch } from '../services/moviesAPI';
 
 const Movies = () => {
   const [value, setValue] = useState('');
@@ -11,19 +11,7 @@ const Movies = () => {
 
   useEffect(() => {
     if (query) {
-      const getSearch = async () => {
-        const responce = await axios.get(
-          `https://api.themoviedb.org/3/search/movie?query=${query}`,
-          {
-            headers: {
-              Authorization:
-                'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMDlhZWMzZTAxMTQzYTcwM2I0ODM4MjVhODMzMzY2ZiIsInN1YiI6IjY0N2YxMTg3MGUyOWEyMmJlMDhlOTk4YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FrnBh2tYMap5WoIYIMa-C8qNNuc5WsMKgDAIEwEVz6g',
-            },
-          }
-        );
-        setMovies(responce.data.results);
-      };
-      getSearch();
+      getSearch(query).then(setMovies).catch(console.log);
     }
   }, [query]);
 
