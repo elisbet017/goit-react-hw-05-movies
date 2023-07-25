@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { getSearch } from '../services/moviesAPI';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { getSearch } from '../../services/moviesAPI';
+import { Input, Button, Form} from './Movies.styled';
+import { List, Item, MovieLink } from '../Home/Home.styled';
 
 const Movies = () => {
   const [value, setValue] = useState('');
@@ -28,27 +30,27 @@ const Movies = () => {
   return (
     <main>
       <section>
-        <form onSubmit={onFormSubmit}>
-          <input
+        <Form onSubmit={onFormSubmit}>
+          <Input
             type="text"
             name="query"
             value={value}
             onChange={handleChange}
           />
-          <button type="submit">Search</button>
-        </form>
+          <Button type="submit">Search</Button>
+        </Form>
       </section>
       {movies.length !== 0 && (
         <section>
-          <ul>
+          <List>
             {movies.map(({ id, title }) => (
-              <li key={id}>
-                <Link to={`${id}`} state={{ from: location }}>
+              <Item key={id}>
+                <MovieLink to={`${id}`} state={{ from: location }}>
                   {title}
-                </Link>
-              </li>
+                </MovieLink>
+              </Item>
             ))}
-          </ul>
+          </List>
         </section>
       )}
     </main>
