@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { getSearch } from '../../services/moviesAPI';
-import { Input, Button, Form} from './Movies.styled';
+import { Input, Button, Form } from './Movies.styled';
 import { List, Item, MovieLink } from '../Home/Home.styled';
 
 const Movies = () => {

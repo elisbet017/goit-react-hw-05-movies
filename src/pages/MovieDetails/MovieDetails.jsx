@@ -1,10 +1,5 @@
 import { useEffect, useState, Suspense, useRef } from 'react';
-import {
-  Outlet,
-  useLocation,
-  useParams,
-  useNavigate,
-} from 'react-router-dom';
+import { Outlet, useLocation, useParams, useNavigate } from 'react-router-dom';
 import { getMovieDetails } from '../../services/moviesAPI';
 import {
   Button,
