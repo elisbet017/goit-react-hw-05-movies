@@ -1,4 +1,4 @@
-import { useEffect, useState, Suspense, useRef } from 'react';
+import { useEffect, useState, Suspense, useRef, FC } from 'react';
 import { Outlet, useLocation, useParams, useNavigate } from 'react-router-dom';
 import { getMovieDetails } from '../../services/moviesAPI';
 import {
@@ -10,20 +10,38 @@ import {
 } from './MovieDetails.styled';
 import { Item, MovieLink } from '../Home/Home.styled';
 
-const MovieDetails = () => {
+interface IGenre {
+  name: string;
+}
+
+interface IMovie {
+  title: string;
+  poster_path: string;
+  release_date: string;
+  vote_average: number;
+  overview: string;
+  genres: IGenre[];
+}
+
+const MovieDetails: FC = () => {
   const { movieId } = useParams();
   const location = useLocation();
   const backLinkLocation = useRef(location.state?.from ?? '/');
   const navigate = useNavigate();
 
-  const [movie, setMovie] = useState({});
+  const [movie, setMovie] = useState<IMovie | null>(null);
 
   useEffect(() => {
-    getMovieDetails(movieId).then(setMovie).catch(console.log);
+    movieId && getMovieDetails(movieId).then(setMovie).catch(console.log);
   }, [movieId]);
+
+  if (!movie) {
+    return;
+  }
 
   const { title, poster_path, release_date, vote_average, overview, genres } =
     movie;
+
   return (
     <main>
       <Button

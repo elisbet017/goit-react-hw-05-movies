@@ -1,14 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviews } from '../../services/moviesAPI';
 import { ReviewsSection, Review, Author } from './Reviews.styled';
 
-const Reviews = () => {
+interface IReview {
+  id: string;
+  author: string;
+  content: string;
+}
+
+const Reviews: FC = () => {
   const { movieId } = useParams();
-  const [reviews, setReviews] = useState(null);
+  const [reviews, setReviews] = useState<IReview[] | null>(null);
 
   useEffect(() => {
-    getReviews(movieId).then(setReviews).catch(console.log);
+    movieId && getReviews(movieId).then(setReviews).catch(console.log);
   }, [movieId]);
 
   return (

@@ -1,15 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieCast } from '../../services/moviesAPI';
-import { List, Card, Image, Name } from './Cast.styled'
+import { List, Card, Image, Name } from './Cast.styled';
 import { ReviewsSection } from '../Reviews/Reviews.styled';
 
-const Cast = () => {
+interface ICast {
+  id: string;
+  name: string;
+  character: string;
+  profile_path: string;
+}
+
+const Cast: FC = () => {
   const { movieId } = useParams();
-  const [cast, setCast] = useState(null);
+  const [cast, setCast] = useState<ICast[] | null>(null);
 
   useEffect(() => {
-    getMovieCast(movieId).then(setCast).catch(console.log);
+    movieId && getMovieCast(movieId).then(setCast).catch(console.log);
   }, [movieId]);
 
   return (

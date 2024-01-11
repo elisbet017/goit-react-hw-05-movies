@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import SharedLayout from './SharedLayout';
 
@@ -8,7 +8,7 @@ const MovieDetails = lazy(() => import('../pages/MovieDetails/MovieDetails'));
 const Cast = lazy(() => import('./Cast'));
 const Reviews = lazy(() => import('./Reviews'));
 
-export const App = () => {
+export const App: FC = () => {
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>

@@ -1,13 +1,22 @@
-import { useEffect, useMemo, useState } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useState,
+  FormEvent,
+  ChangeEvent,
+  FC,
+} from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { getSearch } from '../../services/moviesAPI';
 import { Input, Button, Form } from './Movies.styled';
 import { List, Item, MovieLink } from '../Home/Home.styled';
+import { IMovie } from '../Home/Home';
 
-const Movies = () => {
+const Movies: FC = () => {
   const [value, setValue] = useState('');
-  const [movies, setMovies] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [movies, setMovies] = useState<IMovie[]>([]);
+  const [searchParams, setSearchParams]: [URLSearchParams, Function] =
+    useSearchParams();
   const query = useMemo(() => searchParams.get('query'), [searchParams]);
   const location = useLocation();
 
@@ -17,14 +26,18 @@ const Movies = () => {
     }
   }, [query]);
 
-  const onFormSubmit = e => {
+  const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const query = e.target.elements.query.value.trim();
+    const query = (
+      (e.target as HTMLFormElement).elements.namedItem(
+        'query'
+      ) as HTMLInputElement | null
+    )?.value.trim();
     const newParams = query !== '' ? { query } : {};
     setSearchParams(newParams);
   };
 
-  const handleChange = e => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
   return (

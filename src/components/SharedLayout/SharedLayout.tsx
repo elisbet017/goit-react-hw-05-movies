@@ -1,8 +1,9 @@
-import {  Outlet } from 'react-router-dom';
-import { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
+import { Suspense, FC } from 'react';
 import { Link, Header, Nav } from './SharedLayout.styled';
-import { GlobalStyles } from '../../utils/GlobalStyles'
-const SharedLayout = () => {
+import { GlobalStyles } from '../../utils/GlobalStyles';
+
+const SharedLayout: FC = () => {
   return (
     <>
       <Header>

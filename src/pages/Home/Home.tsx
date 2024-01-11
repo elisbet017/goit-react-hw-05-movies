@@ -1,9 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import { getTrendingMovies } from '../../services/moviesAPI';
 import { MovieLink, List, Item, Title } from './Home.styled';
 
-const Home = () => {
-  const [movies, setMovies] = useState([]);
+export interface IMovie {
+  id: string;
+  title: string;
+}
+
+const Home: FC = () => {
+  const [movies, setMovies] = useState<IMovie[]>([]);
 
   useEffect(() => {
     getTrendingMovies().then(setMovies).catch(console.log);
