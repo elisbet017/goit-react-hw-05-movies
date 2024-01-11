@@ -8,9 +8,9 @@ const root = document.getElementById('root');
 if (!root) throw new Error('Failed to find the root element');
 
 ReactDOM.createRoot(root).render(
-  <typeof React.StrictMode>
+  <React.StrictMode>
     <BrowserRouter basename="/goit-react-hw-05-movies">
       <App />
     </BrowserRouter>
-  </typeof React.StrictMode>
+  </React.StrictMode>
 );
